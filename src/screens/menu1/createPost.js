@@ -47,13 +47,8 @@ const styles = StyleSheet.create({
     borderColor: "#DD5151",
     borderWidth: 2,
     borderRadius: 8,
-    // iOS 스타일 속성
+    // Android 스타일 속성
     ...Platform.select({
-      ios: {
-        mixBlendMode: "color-burn",
-        backdropFilter: "blur(2px)",
-      },
-      // Android 스타일 속성
       android: {
         elevation: 5,
       },
