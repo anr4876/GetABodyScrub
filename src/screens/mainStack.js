@@ -35,7 +35,7 @@ export default function StackScreen() {
       }}
       screenOptions={{
         tabBarStyle: {
-          height: 60, // 변경된 부분: 높이를 적절한 값으로 조절하세요.
+          height: 60,
           flex: 0.08,
         }
       }}
