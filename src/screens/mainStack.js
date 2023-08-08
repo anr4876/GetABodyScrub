@@ -1,82 +1,50 @@
-import * as React from "react";
-import StackScreen1 from "./menu1Stack";
-import StackScreen2 from "./menu2Stack";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faHouse, faLocationDot, faMagnifyingGlass, faFileLines, faEllipsis} from "@fortawesome/free-solid-svg-icons";
+import * as React from 'react';
+import { Dimensions } from "react-native";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import StackScreen1 from './menu1Stack';
+import StackScreen2 from './menu2Stack';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHouse, faLocationDot, faMagnifyingGlass, faFileLines, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
-//바텀 네비게이터
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+// 사이즈
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const iconSize = windowWidth*0.055;
+
+// 아이콘 스타일
+const tabBarIcon = (icon, focused) => (
+  <FontAwesomeIcon icon={icon} size={iconSize} style={{ color: focused ? '#dd5151' : '#9A9A9A' }} />
+);
+
+// 바텀 네비게이터
 const Tab = createBottomTabNavigator();
 
+// 탭 스크린 옵션
+const createTabScreen = (name, component, icon) => ({
+  name, component, options: { tabBarIcon: ({ focused }) => tabBarIcon(icon, focused) },
+});
+
 export default function StackScreen() {
-  // return <NavigationContainer>{StackScreen1()}</NavigationContainer>;
   return (
     <Tab.Navigator
       initialRouteName="홈"
       tabBarOptions={{
-        activeTintColor: "#dd5151",
-        inactiveTintColor: "#9A9A9A",
-        labelPosition: "below-icon",
-        labelStyle: { fontSize: 14, marginTop: 0, marginBottom: 0 },
+        activeTintColor: '#dd5151', inactiveTintColor: '#9A9A9A',
+        labelPosition: 'below-icon',
+        labelStyle: { fontSize: 15, marginTop: 0, marginBottom: 0 },
       }}
       screenOptions={{
-        tabBarStyle: { height: 10, flex: 0.08 }
+        tabBarStyle: {
+          height: 60, // 변경된 부분: 높이를 적절한 값으로 조절하세요.
+          flex: 0.08,
+        }
       }}
     >
-
-      <Tab.Screen name="홈" component={StackScreen1}
-        options={{
-          tabBarLabel: "홈",
-
-          tabBarIcon: ({ focused }) => (
-            <FontAwesomeIcon icon={faHouse}
-              style={{ color: focused ? "#dd5151" : "#9A9A9A" }}
-            />
-          ),
-        }}
-      />
-
-      <Tab.Screen name="내주변" component={StackScreen2}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <FontAwesomeIcon icon={faLocationDot}
-              style={{ color: focused ? "#dd5151" : "#9A9A9A" }}
-            />
-          ),
-        }}
-      />
-
-      <Tab.Screen name="검색 " component={StackScreen2}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <FontAwesomeIcon icon={faMagnifyingGlass}
-              size={25}
-              style={{ color: focused ? "#dd5151" : "#9A9A9A" }}
-            />
-          ),
-        }}
-      />
-
-      <Tab.Screen name="예약 내역" component={StackScreen2}
-        options={{
-          tabBarIcon: ({ focused }) => (
-        <FontAwesomeIcon icon={faFileLines}
-              style={{ color: focused ? "#dd5151" : "#9A9A9A" }}
-            />
-          ),
-        }}
-      />
-
-      <Tab.Screen name="더보기" component={StackScreen2}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <FontAwesomeIcon icon={faEllipsis}
-              style={{ color: focused ? "#dd5151" : "#9A9A9A" }}
-            />
-          ),
-        }}
-      />
-
+      <Tab.Screen {...createTabScreen('검색', StackScreen1, faMagnifyingGlass)} />
+      <Tab.Screen {...createTabScreen('내주변', StackScreen2, faLocationDot)} />
+      <Tab.Screen {...createTabScreen('홈', StackScreen2, faHouse)} />
+      <Tab.Screen {...createTabScreen('예약 내역', StackScreen2, faFileLines)} />
+      <Tab.Screen {...createTabScreen('더보기', StackScreen2, faEllipsis)} />
     </Tab.Navigator>
-  )
+  );
 }
