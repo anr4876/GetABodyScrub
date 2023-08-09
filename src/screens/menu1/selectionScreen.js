@@ -62,7 +62,7 @@ function HeaderLine({ navigate }) {
   );
 }
 
-function MidLine({ navigate,selectedDistrict }) {
+function MidLine({ navigate, selectedDistrict }) {
   return (
     <View>
       <FontAwesomeIcon icon={faLocationArrow} />
