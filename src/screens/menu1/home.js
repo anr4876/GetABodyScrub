@@ -36,8 +36,8 @@ export default function HomeScreen({ navigation, route }) {
         }
       />
       <Button
-        title="Create post"
-        onPress={() => navigation.navigate("CreatePost")}
+        title="Selection Screen"
+        onPress={() => navigation.navigate("Selection")}
       />
       <Button
         title="Go to Profile"

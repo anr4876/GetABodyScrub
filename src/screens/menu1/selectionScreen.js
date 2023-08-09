@@ -70,7 +70,7 @@ function MidLine({ navigate }) {
   );
 }
 
-export default function CreatePostScreen({ navigation }) {
+export default function SelectionScreen({ navigation }) {
   return (
     <View style={styles.wrapper}>
       <HeaderLine navigate={navigation.navigate} />

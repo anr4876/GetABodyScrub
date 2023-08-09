@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, Image } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import CreatePostScreen from "./menu1/createPost";
+import SelectionScreen from "./menu1/selectionScreen";
 import DetailsScreen from "./menu1/detail";
 import HomeScreen from "./menu1/home";
 import ProfileScreen from "./menu1/profile";
@@ -55,8 +55,8 @@ export default function StackScreen1() {
         options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
       />
       <Stack.Screen
-        name="CreatePost"
-        component={CreatePostScreen}
+        name="Selection"
+        component={SelectionScreen}
         options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
       />
     </Stack.Navigator>
