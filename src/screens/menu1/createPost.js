@@ -1,5 +1,16 @@
 import * as React from "react";
-import { Button, TextInput, StyleSheet, Dimensions, View } from "react-native";
+import {
+  TextInput,
+  StyleSheet,
+  Dimensions,
+  View,
+  TouchableOpacity,
+} from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faMagnifyingGlass,
+  faCalendarDays,
+} from "@fortawesome/free-solid-svg-icons";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -9,24 +20,39 @@ export default function CreatePostScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        multiline
-        placeholder="What's on your mind?"
-        style={styles.input}
-        value={postText}
-        onChangeText={setPostText}
-      />
-      <Button
-        title="Done"
-        onPress={() => {
-          // Pass and merge params back to home screen
-          navigation.navigate({
-            name: "Home",
-            params: { post: postText },
-            merge: true,
-          });
-        }}
-      />
+      <View style={styles.rowContainer}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            multiline
+            placeholder="What's on your mind?"
+            style={styles.input}
+            value={postText}
+            onChangeText={setPostText}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate({
+                name: "Home",
+                params: { post: postText },
+                merge: true,
+              });
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              style={{ color: "#DD5151" }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.dateContainer}>
+          <TouchableOpacity style={styles.dateButton}>
+            <FontAwesomeIcon
+              icon={faCalendarDays}
+              style={{ color: "#DD5151" }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 }
@@ -37,21 +63,37 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  input: {
-    padding: 10,
-    backgroundColor: "white",
-    height: windowHeight * 0.045,
-    width: windowWidth * 0.6,
-    alignSelf: "center",
-    marginBottom: 20,
+  rowContainer: {
+    flexDirection: "row",
+  },
+  inputContainer: {
+    flex: 2, // 2:1 비율
+    flexDirection: "row",
+    alignItems: "center",
     borderColor: "#DD5151",
     borderWidth: 2,
     borderRadius: 8,
-    // Android 스타일 속성
+    backgroundColor: "white",
     ...Platform.select({
       android: {
         elevation: 5,
       },
     }),
+  },
+  input: {
+    flex: 1,
+    padding: 10,
+  },
+  dateContainer: {
+    flex: 1, // 2:1 비율
+  },
+  dateButton: {
+    width: 73,
+    height: 28,
+    borderWidth: 2,
+    borderColor: "#DD5151",
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
