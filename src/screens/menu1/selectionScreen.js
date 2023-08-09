@@ -21,66 +21,101 @@ import {
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-function HeaderLine({ navigate }) {
+function HeaderLine({ navigate, selectedDistrict = "내 주변 거리순" }) {
   const [postText, setPostText] = React.useState("");
 
   return (
-    <View style={styles.headerContainer}>
-      <View style={styles.menuContainer}>
-        <TouchableOpacity>
-          <FontAwesomeIcon icon={faBars} style={{ color: "#DD5151" }} />
-        </TouchableOpacity>
-      </View>
+    <View>
+      {/* 상단 블록 */}
+      <View style={styles.headerContainer}>
+        <View style={styles.menuContainer}>
+          <TouchableOpacity>
+            <FontAwesomeIcon icon={faBars} style={{ color: "#DD5151" }} />
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          multiline
-          placeholder="?"
-          style={styles.input}
-          value={postText}
-          onChangeText={setPostText}
-        />
-        <TouchableOpacity
-          onPress={() => {
-            navigate({
-              name: "Home",
-              params: { post: postText },
-              merge: true,
-            });
-          }}
-        >
-          <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            style={{ color: "#DD5151", marginRight: 7 }}
+        <View style={styles.inputContainer}>
+          <TextInput
+            multiline
+            placeholder="?"
+            style={styles.input}
+            value={postText}
+            onChangeText={setPostText}
           />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigate({
+                name: "Home",
+                params: { post: postText },
+                merge: true,
+              });
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              style={{ color: "#DD5151", marginRight: 7 }}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.dateContainer}>
+          <TouchableOpacity style={styles.dateButton}>
+            <Text style={styles.dateText}>예약일 선택</Text>
+            <FontAwesomeIcon
+              icon={faCalendarDays}
+              style={{ color: "#DD5151" }}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.dateContainer}>
-        <TouchableOpacity style={styles.dateButton}>
-          <Text style={styles.dateText}>예약일 선택</Text>
-          <FontAwesomeIcon icon={faCalendarDays} style={{ color: "#DD5151" }} />
-        </TouchableOpacity>
+
+      {/* 하단 블록 */}
+      <View
+        style={{
+          flexDirection: "column", // 세로로 정렬
+          marginLeft: windowWidth * 0.035,
+          marginTop: windowHeight * 0.07, // 원하는 행 정보 조정할 수 있음
+        }}
+      >
+        <View>
+          <FontAwesomeIcon icon={faLocationArrow} />
+        </View>
+        <View style={{ marginTop: 5 }}>
+          <Text>{selectedDistrict}</Text>
+        </View>
       </View>
     </View>
   );
 }
 
-function MidLine({ navigate }) {
-  return (
-    <View style={{ alignSelf: "flex-start", marginTop: -windowHeight * 0.32 }}>
-      <FontAwesomeIcon icon={faLocationArrow} />
-    </View>
-  );
-}
+// function MidLine({ navigate, selectedDistrict = "내 주변 거리순" }) {
+//   return (
+//     <View
+//       style={{
+//         alignSelf: "flex-start",
+//         marginTop: 56, // 원하는 상단 위치로 조절
+//         position: "absolute",
+//         top: 0, // 상단 위치를 0으로 설정
+//         left: 0, // 왼쪽 위치를 0으로 설정
+//         zIndex: 5, // zIndex 값을 적절하게 조절
+//         backgroundColor: "white", // 배경색을 white로 설정
+//       }}
+//     >
+//       <FontAwesomeIcon icon={faLocationArrow} />
+//       <Text>{selectedDistrict}</Text>
+//     </View>
+//   );
+// }
 
 function BottomLine({ navigate }) {
   let name = "온천 불가마 사우나";
   let content = "대전광역시 유성구 봉명동 538-1";
+
   return (
     <View
       style={{
         alignSelf: "flex-start",
-        marginTop: windowHeight * 0.35,
+        marginTop: windowHeight * 0.03,
         marginLeft: windowWidth * 0.07,
       }}
     >
@@ -108,8 +143,8 @@ function SelectionScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <HeaderLine navigate={navigation.navigate} />
+      {/* <MidLine navigate={navigation.navigate} /> */}
       <ScrollView contentContainerStyle={{ flexGrow: 1, paddingTop: 64 }}>
-        <MidLine navigate={navigation.navigate} />
         <BottomLine navigate={navigation.navigate} />
       </ScrollView>
     </View>

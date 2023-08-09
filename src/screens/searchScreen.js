@@ -1,21 +1,18 @@
-import React, { useState } from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
-import regions from "./regions";
+import React, { useState } from 'react';
+import { SafeAreaView, View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import regions from './regions';
 
-function App() {
+export default function SearchScreen({ navigation }) {
   const [selectedProvince, setSelectedProvince] = useState(null);
   const [districts, setDistricts] = useState([]);
 
   const onProvincePress = (province) => {
     setSelectedProvince(province.id);
     setDistricts(province.districts);
+  };
+
+  const onDistrictPress = (district) => {
+    navigation.navigate('Selection', { selectedDistrict: district });
   };
 
   return (
@@ -51,7 +48,7 @@ function App() {
         keyExtractor={(item, index) => `${selectedProvince}-${index}`}
         renderItem={({ item }) => (
           <View style={styles.districtItem}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => onDistrictPress(item)}>
               <Text>{item}</Text>
             </TouchableOpacity>
           </View>
@@ -107,4 +104,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
