@@ -3,6 +3,7 @@ import { Dimensions } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StackScreen1 from './menu1Stack';
 import StackScreen2 from './menu2Stack';
+import SearchScreen from './searchScreen';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHouse, faLocationDot, faMagnifyingGlass, faFileLines, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,21 +29,20 @@ export default function StackScreen() {
   return (
     <Tab.Navigator
       initialRouteName="홈"
-      tabBarOptions={{
-        activeTintColor: '#dd5151', inactiveTintColor: '#9A9A9A',
-        labelPosition: 'below-icon',
-        labelStyle: { fontSize: 15, marginTop: 0, marginBottom: 0 },
-      }}
       screenOptions={{
+        tabBarActiveTintColor: '#dd5151',
+        tabBarInactiveTintColor: '#9A9A9A',
+        tabBarLabelPosition: 'below-icon',
+        tabBarLabelStyle: { fontSize: 15, marginTop: 0, marginBottom: 0 },
         tabBarStyle: {
           height: 60,
           flex: 0.08,
         }
       }}
     >
-      <Tab.Screen {...createTabScreen('검색', StackScreen1, faMagnifyingGlass)} />
+      <Tab.Screen {...createTabScreen('검색', SearchScreen, faMagnifyingGlass)} />
       <Tab.Screen {...createTabScreen('내주변', StackScreen2, faLocationDot)} />
-      <Tab.Screen {...createTabScreen('홈', StackScreen2, faHouse)} />
+      <Tab.Screen {...createTabScreen('홈', StackScreen1, faHouse)} />
       <Tab.Screen {...createTabScreen('예약 내역', StackScreen2, faFileLines)} />
       <Tab.Screen {...createTabScreen('더보기', StackScreen2, faEllipsis)} />
     </Tab.Navigator>
