@@ -62,19 +62,22 @@ function HeaderLine({ navigate }) {
   );
 }
 
-function MidLine({ navigate }) {
+function MidLine({ navigate,selectedDistrict }) {
   return (
     <View>
       <FontAwesomeIcon icon={faLocationArrow} />
+      <Text>{selectedDistrict}</Text>
     </View>
   );
 }
 
-export default function SelectionScreen({ navigation }) {
+export default function SelectionScreen({ route, navigation }) {
+  const { selectedDistrict } = route.params;
+
   return (
     <View style={styles.wrapper}>
       <HeaderLine navigate={navigation.navigate} />
-      <MidLine />
+      <MidLine selectedDistrict={selectedDistrict} />
     </View>
   );
 }

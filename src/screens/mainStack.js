@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StackScreen1 from './menu1Stack';
 import StackScreen2 from './menu2Stack';
 import SearchScreen from './searchScreen';
+import searchStack from './searchStack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHouse, faLocationDot, faMagnifyingGlass, faFileLines, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,7 +12,7 @@ import { faHouse, faLocationDot, faMagnifyingGlass, faFileLines, faEllipsis } fr
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const iconSize = windowWidth*0.055;
-
+ 
 // 아이콘 스타일
 const tabBarIcon = (icon, focused) => (
   <FontAwesomeIcon icon={icon} size={iconSize} style={{ color: focused ? '#dd5151' : '#9A9A9A' }} />
@@ -28,7 +29,7 @@ const createTabScreen = (name, component, icon) => ({
 export default function StackScreen() {
   return (
     <Tab.Navigator
-      initialRouteName="홈"
+      initialRouteName='검색'
       screenOptions={{
         tabBarActiveTintColor: '#dd5151',
         tabBarInactiveTintColor: '#9A9A9A',
@@ -40,7 +41,7 @@ export default function StackScreen() {
         }
       }}
     >
-      <Tab.Screen {...createTabScreen('검색', SearchScreen, faMagnifyingGlass)} />
+      <Tab.Screen {...createTabScreen('검색', searchStack, faMagnifyingGlass)} />
       <Tab.Screen {...createTabScreen('내주변', StackScreen2, faLocationDot)} />
       <Tab.Screen {...createTabScreen('홈', StackScreen1, faHouse)} />
       <Tab.Screen {...createTabScreen('예약 내역', StackScreen2, faFileLines)} />
