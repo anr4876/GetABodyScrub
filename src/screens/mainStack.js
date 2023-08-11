@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StackScreen1 from './menu1Stack';
 import StackScreen2 from './menu2Stack';
 import SearchScreen from './searchScreen';
-import searchStack from './searchStack';
+import SearchStack from './searchStack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHouse, faLocationDot, faMagnifyingGlass, faFileLines, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 

@@ -1,8 +1,16 @@
 import * as React from "react";
 import { View, Text, Button } from "react-native";
+import gpsLocation from './gpsLocation';
 
 export default function HomeScreen({ navigation, route }) {
   const [count, setCount] = React.useState(0);
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      setSelectedDistrict(await gpsLocation());
+    })();
+  }, []);
 
   React.useEffect(() => {
     // Use `setOptions` to update the button that we previously specified
@@ -38,7 +46,7 @@ export default function HomeScreen({ navigation, route }) {
       <Button
         title="Selection Screen"
         onPress={() =>
-          navigation.navigate("Selection", { selectedDistrict: "서구" })
+          navigation.navigate('Selection', { selectedDistrict })
         }
       />
       <Button
