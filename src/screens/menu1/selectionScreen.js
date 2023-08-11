@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextInput,
   Text,
@@ -21,7 +21,7 @@ import {
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-function HeaderLine({ navigate, selectedDistrict = "내 주변 거리순" }) {
+function HeaderLine({ navigate, selectedDistrict }) {
   const [postText, setPostText] = React.useState("");
 
   return (
@@ -72,7 +72,7 @@ function HeaderLine({ navigate, selectedDistrict = "내 주변 거리순" }) {
       {/* 하단 블록 */}
       <View
         style={{
-          flexDirection: "column", // 세로로 정렬
+          flexDirection: "row", // 세로로 정렬
           marginLeft: windowWidth * 0.035,
           marginTop: windowHeight * 0.07, // 원하는 행 정보 조정할 수 있음
         }}
@@ -88,28 +88,32 @@ function HeaderLine({ navigate, selectedDistrict = "내 주변 거리순" }) {
   );
 }
 
-// function MidLine({ navigate, selectedDistrict = "내 주변 거리순" }) {
-//   return (
-//     <View
-//       style={{
-//         alignSelf: "flex-start",
-//         marginTop: 56, // 원하는 상단 위치로 조절
-//         position: "absolute",
-//         top: 0, // 상단 위치를 0으로 설정
-//         left: 0, // 왼쪽 위치를 0으로 설정
-//         zIndex: 5, // zIndex 값을 적절하게 조절
-//         backgroundColor: "white", // 배경색을 white로 설정
-//       }}
-//     >
-//       <FontAwesomeIcon icon={faLocationArrow} />
-//       <Text>{selectedDistrict}</Text>
-//     </View>
-//   );
-// }
+function BottomLine({ navigate, selectedDistrict }) {
+  const [items, setItems] = useState([]);
+  const [isServiceAvailable, setIsServiceAvailable] = useState(true);
+  const NAVIGATE_PARAM_REGION = selectedDistrict;
 
-function BottomLine({ navigate }) {
-  let name = "온천 불가마 사우나";
-  let content = "대전광역시 유성구 봉명동 538-1";
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await fetch(
+          `http://220.81.199.135:3000/items?region=${NAVIGATE_PARAM_REGION}`
+        );
+        const data = await response.json();
+        console.log("Fetched data:", data);
+
+        if (data.items && data.items.length > 0) {
+          setItems(data.items);
+          setIsServiceAvailable(true);
+        } else {
+          setIsServiceAvailable(false);
+        }
+      } catch (error) {
+        console.error("Error fetching items:", error);
+      }
+    };
+    fetchItems();
+  }, []);
 
   return (
     <View
@@ -119,33 +123,41 @@ function BottomLine({ navigate }) {
         marginLeft: windowWidth * 0.07,
       }}
     >
-      <TouchableOpacity>
-        <Image
-          source={require("../../assets/test.png")}
-          style={styles.separateImage}
-        />
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.content}>{content}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Image
-          source={require("../../assets/test2.png")}
-          style={styles.separateImage}
-        />
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.content}>{content}</Text>
-      </TouchableOpacity>
+      {isServiceAvailable ? (
+        items.map((item) => (
+          <View key={item.id} style={styles.itemContainer}>
+            <Image
+              source={{ uri: item.imageUrl }}
+              style={styles.separateImage}
+            />
+            <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.content}>{item.content}</Text>
+          </View>
+        ))
+      ) : (
+        <Text style={styles.unavailableServiceMessage}>
+          서비스 준비중입니다
+        </Text>
+      )}
     </View>
   );
 }
 
-function SelectionScreen({ navigation }) {
+function SelectionScreen({ route, navigation }) {
+  const { selectedDistrict } = route.params;
+
   return (
     <View style={styles.container}>
-      <HeaderLine navigate={navigation.navigate} />
+      <HeaderLine
+        navigate={navigation.navigate}
+        selectedDistrict={selectedDistrict}
+      />
       {/* <MidLine navigate={navigation.navigate} /> */}
       <ScrollView contentContainerStyle={{ flexGrow: 1, paddingTop: 64 }}>
-        <BottomLine navigate={navigation.navigate} />
+        <BottomLine
+          navigate={navigation.navigate}
+          selectedDistrict={selectedDistrict}
+        />
       </ScrollView>
     </View>
   );
@@ -258,6 +270,14 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.3,
     left: windowWidth * 0.05,
     top: windowHeight * 0.35,
+  },
+  itemContainer: {
+    marginBottom: 16, // 아이템 간격 조정
+  },
+  separateImage: {
+    width: 100,
+    height: 100,
+    resizeMode: "cover",
   },
 });
 

@@ -37,7 +37,9 @@ export default function HomeScreen({ navigation, route }) {
       />
       <Button
         title="Selection Screen"
-        onPress={() => navigation.navigate("Selection")}
+        onPress={() =>
+          navigation.navigate("Selection", { selectedDistrict: "서구" })
+        }
       />
       <Button
         title="Go to Profile"
