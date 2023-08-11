@@ -41,7 +41,7 @@ export default function StackScreen() {
         }
       }}
     >
-      <Tab.Screen {...createTabScreen('검색', searchStack, faMagnifyingGlass)} />
+      <Tab.Screen {...createTabScreen('검색', SearchStack, faMagnifyingGlass)} />
       <Tab.Screen {...createTabScreen('내주변', StackScreen2, faLocationDot)} />
       <Tab.Screen {...createTabScreen('홈', StackScreen1, faHouse)} />
       <Tab.Screen {...createTabScreen('예약 내역', StackScreen2, faFileLines)} />
