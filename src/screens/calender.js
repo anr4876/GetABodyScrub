@@ -1,8 +1,8 @@
 // calender.js
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import Calendar from './cal';
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, View, Dimensions } from "react-native";
+import Calendar from "./cal";
 
 export default function CalendarScreen() {
   const handleOnClose = () => {
@@ -12,6 +12,8 @@ export default function CalendarScreen() {
   const handleOnReset = () => {
     // 초기화 기능 구현
   };
+  const { width, height } = Dimensions.get("window");
+  const styles = createStyleSheet(width, height);
 
   return (
     <View style={styles.container}>
@@ -21,11 +23,15 @@ export default function CalendarScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function createStyleSheet(width, height) {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
+      width: width,
+      height: height,
+    },
+  });
+}
