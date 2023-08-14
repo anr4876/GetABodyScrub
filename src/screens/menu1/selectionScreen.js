@@ -26,7 +26,6 @@ function HeaderLine({ navigate, selectedDistrict }) {
 
   return (
     <View>
-      {/* 상단 블록 */}
       <View style={styles.headerContainer}>
         <View style={styles.menuContainer}>
           <TouchableOpacity>
@@ -68,22 +67,26 @@ function HeaderLine({ navigate, selectedDistrict }) {
           </TouchableOpacity>
         </View>
       </View>
+    </View>
+  );
+}
 
-      {/* 하단 블록 */}
-      <View
-        style={{
-          flexDirection: "row", // 세로로 정렬
-          marginLeft: windowWidth * 0.035,
-          marginTop: windowHeight * 0.07, // 원하는 행 정보 조정할 수 있음
-        }}
-      >
-        <View>
-          <FontAwesomeIcon icon={faLocationArrow} />
-        </View>
-        <View style={{ marginTop: 5 }}>
-          <Text>{selectedDistrict}</Text>
-        </View>
+function ArrowLine({ selectedDistrict }) {
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        marginLeft: windowWidth * 0.035,
+        marginBottom: windowHeight * 0.12,
+      }}
+    >
+      <View style={styles.iconContainer}>
+        <FontAwesomeIcon icon={faLocationArrow} style={styles.icon} />
       </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>{selectedDistrict}</Text>
+      </View>
+      <View style={styles.line} />
     </View>
   );
 }
@@ -120,19 +123,22 @@ function BottomLine({ navigate, selectedDistrict }) {
       style={{
         alignSelf: "flex-start",
         marginTop: windowHeight * 0.03,
-        marginLeft: windowWidth * 0.07,
+        marginLeft: windowWidth * 0.05,
       }}
     >
       {isServiceAvailable ? (
         items.map((item) => (
-          <View key={item.id} style={styles.itemContainer}>
-            <Image
-              source={{ uri: item.imageUrl }}
-              style={styles.separateImage}
-            />
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.content}>{item.content}</Text>
-          </View>
+          <TouchableOpacity key={item.id}>
+            <View style={styles.itemContainer}>
+              <Image
+                source={{ uri: item.imageUrl }}
+                style={styles.separateImage}
+              />
+              <Text style={styles.name}>{item.name}</Text>
+              <Text style={styles.content}>{item.content}</Text>
+              <Text>{item.price}</Text>
+            </View>
+          </TouchableOpacity>
         ))
       ) : (
         <Text style={styles.unavailableServiceMessage}>
@@ -148,12 +154,21 @@ function SelectionScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <HeaderLine
-        navigate={navigation.navigate}
-        selectedDistrict={selectedDistrict}
-      />
-      {/* <MidLine navigate={navigation.navigate} /> */}
-      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingTop: 64 }}>
+      <View style={{ position: "absolute", zIndex: 10, width: "100%" }}>
+        <HeaderLine
+          navigate={navigation.navigate}
+          selectedDistrict={selectedDistrict}
+        />
+      </View>
+
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingTop: 64,
+          marginTop: 55,
+        }}
+      >
+        <ArrowLine selectedDistrict={selectedDistrict} />
         <BottomLine
           navigate={navigation.navigate}
           selectedDistrict={selectedDistrict}
@@ -177,11 +192,11 @@ const styles = StyleSheet.create({
     }),
   },
   headerContainer: {
-    position: "absolute", // 여기에 position 속성 추가
-    top: 0, // 상단 위치를 0으로 설정
-    left: 0, // 왼쪽 위치를 0으로 설정
-    width: "100%", // 너비를 100%로 설정하여 전체 너비를 차지하게 합니다.
-    zIndex: 10, // 헤더가 항상 위에 올 수 있도록 zIndex 설정
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    zIndex: 10,
     paddingTop: 4,
     paddingBottom: 4,
 
@@ -264,20 +279,56 @@ const styles = StyleSheet.create({
     lineHeight: windowHeight * 0.02,
     color: "#5E5E5E",
   },
-  backgroundView: {
-    position: "absolute",
-    width: windowWidth * 0.8,
-    height: windowHeight * 0.3,
-    left: windowWidth * 0.05,
-    top: windowHeight * 0.35,
-  },
   itemContainer: {
-    marginBottom: 16, // 아이템 간격 조정
+    marginBottom: 16,
   },
   separateImage: {
-    width: 100,
-    height: 100,
+    width: windowWidth * 0.8,
+    height: windowHeight * 0.3,
     resizeMode: "cover",
+  },
+  iconContainer: {
+    position: "absolute",
+    width: 22.96,
+    height: 23.47,
+    left: 21,
+    top: 110.93,
+    transform: [{ rotate: "0.01rad" }],
+  },
+  icon: {
+    color: "#DD5151",
+  },
+  textContainer: {
+    marginTop: 5,
+  },
+  text: {
+    position: "absolute",
+    width: 150,
+    height: 43.65,
+    left: 58,
+    top: 110.72,
+    fontFamily: "Inter",
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: 20,
+    lineHeight: 24,
+  },
+  line: {
+    position: "absolute",
+    width: windowWidth * 0.81,
+    height: 0,
+    left: 21,
+    top: 145,
+    borderWidth: 1,
+    borderColor: "#DD5151",
+  },
+  unavailableServiceMessage: {
+    fontStyle: "normal",
+    fontWeight: "500",
+    fontSize: windowHeight * 0.015,
+    lineHeight: windowHeight * 0.02,
+    textAlign: "center",
+    color: "#5E5E5E",
   },
 });
 
