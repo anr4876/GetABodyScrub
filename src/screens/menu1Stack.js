@@ -5,6 +5,8 @@ import SelectionScreen from "./menu1/selectionScreen";
 import DetailsScreen from "./menu1/detail";
 import HomeScreen from "./menu1/home";
 import ProfileScreen from "./menu1/profile";
+import CalendarScreen from './calender';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +39,11 @@ export default function StackScreen1() {
       <Stack.Screen
         name="Selection"
         component={SelectionScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Calender"
+        component={CalendarScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

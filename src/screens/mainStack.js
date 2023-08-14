@@ -23,7 +23,7 @@ const Tab = createBottomTabNavigator();
 
 // 탭 스크린 옵션
 const createTabScreen = (name, component, icon) => ({
-  name, component, options: { tabBarIcon: ({ focused }) => tabBarIcon(icon, focused) },
+  name, component, options: { tabBarIcon: ({ focused }) => tabBarIcon(icon, focused)}
 });
 
 export default function StackScreen() {

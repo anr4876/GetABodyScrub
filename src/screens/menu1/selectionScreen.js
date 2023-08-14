@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from "react";
-import {
-  TextInput,
-  Text,
-  StyleSheet,
-  Dimensions,
-  View,
-  TouchableOpacity,
-  Platform,
-  ScrollView,
-  Image,
-} from "react-native";
+import { TextInput, Text, StyleSheet, Dimensions, View, TouchableOpacity, Platform, ScrollView, Image, Modal, } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {
-  faMagnifyingGlass,
-  faCalendarDays,
-  faBars,
-  faLocationArrow,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faCalendarDays, faBars, faLocationArrow } from "@fortawesome/free-solid-svg-icons";
+import Calendar from "../calender";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
+const onDistrictPress = (district) => {
+  navigation.navigate("Selection", { selectedDistrict: district });
+};
+
 function HeaderLine({ navigate, selectedDistrict }) {
   const [postText, setPostText] = React.useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View>
@@ -59,7 +50,10 @@ function HeaderLine({ navigate, selectedDistrict }) {
         </View>
 
         <View style={styles.dateContainer}>
-          <TouchableOpacity style={styles.dateButton}>
+          <TouchableOpacity
+            style={styles.dateButton}
+            onPress={() => { setModalVisible(true); }}
+          >
             <Text style={styles.dateText}>예약일 선택</Text>
             <FontAwesomeIcon
               icon={faCalendarDays}
@@ -69,11 +63,42 @@ function HeaderLine({ navigate, selectedDistrict }) {
         </View>
       </View>
 
+      {/* 달력 팝업 */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <View
+            style={{
+              width: windowWidth * 0.8, // 모달 너비 조정
+              height: windowHeight * 0.6, // 모달 높이 조정
+              backgroundColor: "white",
+              borderRadius: 10, // 모달 모서리 둥글게
+            }}
+          >
+            <Calendar onClose={() => setModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
+
       {/* 하단 블록 */}
       <View
         style={{
           flexDirection: "row", // 세로로 정렬
-          marginLeft: windowWidth * 0.035,
+          marginLeft:
+            (windowWidth * 0.035),
           marginTop: windowHeight * 0.07, // 원하는 행 정보 조정할 수 있음
         }}
       >
@@ -123,8 +148,8 @@ function BottomLine({ navigate, selectedDistrict }) {
         marginLeft: windowWidth * 0.07,
       }}
     >
-      {isServiceAvailable ? (
-        items.map((item) => (
+      {isServiceAvailable
+        ? items.map((item) => (
           <View key={item.id} style={styles.itemContainer}>
             <Image
               source={{ uri: item.imageUrl }}
@@ -134,11 +159,11 @@ function BottomLine({ navigate, selectedDistrict }) {
             <Text style={styles.content}>{item.content}</Text>
           </View>
         ))
-      ) : (
-        <Text style={styles.unavailableServiceMessage}>
-          서비스 준비중입니다
-        </Text>
-      )}
+        : (
+          <Text style={styles.unavailableServiceMessage}>
+            서비스 준비중입니다
+          </Text>
+        )}
     </View>
   );
 }

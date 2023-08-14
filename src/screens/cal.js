@@ -1,17 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import {
-    startOfMonth,
-    startOfWeek,
-    addDays,
-    endOfMonth,
-    isSameDay,
-    subMonths,
-    addMonths,
-    format,
-} from 'date-fns';
+import { startOfMonth, startOfWeek, addDays, endOfMonth, isSameDay, subMonths, addMonths, format, } from 'date-fns';
 
-const Calendar = () => {  
+const Calendar = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -73,11 +64,11 @@ const Calendar = () => {
     const prevMonth = () => {
         setSelectedDate(subMonths(selectedDate, 1));
     };
-    
+
     const nextMonth = () => {
         setSelectedDate(addMonths(selectedDate, 1));
     };
-    
+
     const getDayStyle = (date) => {
         if (isSameDay(selectedDate, date)) {
             return styles.selectedDay;
@@ -187,7 +178,7 @@ const styles = StyleSheet.create({
     },
     fontStyleColorOut: {
         color: 'lightgray',
-        backgroundColor : 'red',
+        backgroundColor: 'red',
     },
     selectedDay: {
         backgroundColor: '#DFCFCF',
@@ -196,7 +187,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 40,      // 박스의 너비를 설정하세요
         height: 40,     // 박스의 높이를 설정하세요
-        margin: 6,      // 박스 주위에 여백을 만드세요. 원하는 크기에 맞게 조정하세요.
+        //margin: 6,      // 박스 주위에 여백을 만드세요. 원하는 크기에 맞게 조정하세요.
     },
     textColor: {
         color: 'transparent',

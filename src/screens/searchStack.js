@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Button, Image } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SearchScreen from './searchScreen';
 import SelectionScreen from "./menu1/selectionScreen";
@@ -20,8 +19,8 @@ export default function SearchStack() {
                 },
             }}
         >
-            <Stack.Screen name="Search" component={SearchScreen} />
-            <Stack.Screen name="Selection" component={SelectionScreen} />
+            <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Selection" component={SelectionScreen} options={{ headerShown: false }}/>          
         </Stack.Navigator>
     );
 }
