@@ -19,7 +19,7 @@ import {
   faLocationArrow,
 } from "@fortawesome/free-solid-svg-icons";
 //달력모달
-import Calendar from "../calender";
+import Calendar from "../Calender/calender";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -77,7 +77,7 @@ function HeaderLine({ navigate, selectedDistrict }) {
           </TouchableOpacity>
         </View>
       </View>
-      
+
       {/* 달력 팝업 */}
        <Modal
           animationType="fade"

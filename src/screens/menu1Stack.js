@@ -5,7 +5,7 @@ import SelectionScreen from "./menu1/selectionScreen";
 import DetailsScreen from "./menu1/detail";
 import HomeScreen from "./menu1/home";
 import ProfileScreen from "./menu1/profile";
-import CalendarScreen from './calender';
+import CalendarScreen from './Calender/calender';
 
 
 const Stack = createNativeStackNavigator();
