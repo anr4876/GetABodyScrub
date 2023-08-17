@@ -3,7 +3,7 @@ import { Dimensions } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StackScreen1 from './menu1Stack';
 import StackScreen2 from './menu2Stack';
-import CalendarScreen from './calender';
+import InfoScreen from './infoScreen';
 import SearchStack from './searchStack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHouse, faLocationDot, faMagnifyingGlass, faFileLines, faEllipsis } from '@fortawesome/free-solid-svg-icons';
@@ -45,7 +45,7 @@ export default function StackScreen() {
       <Tab.Screen {...createTabScreen('내주변', StackScreen2, faLocationDot)} />
       <Tab.Screen {...createTabScreen('홈', StackScreen1, faHouse)} />
       <Tab.Screen {...createTabScreen('예약 내역', StackScreen2, faFileLines)} />
-      <Tab.Screen {...createTabScreen('더보기', CalendarScreen, faEllipsis)} />
+      <Tab.Screen {...createTabScreen('더보기', InfoScreen, faEllipsis)} />
     </Tab.Navigator>
   );
 }

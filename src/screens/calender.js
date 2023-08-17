@@ -30,8 +30,8 @@ function createStyleSheet(width, height) {
       backgroundColor: "#fff",
       alignItems: "center",
       justifyContent: "center",
-      width: width,
-      height: height,
+      width: width*0.8,
+      height: height*0.6,
     },
   });
 }
