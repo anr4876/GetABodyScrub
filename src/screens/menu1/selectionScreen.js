@@ -21,7 +21,7 @@ import {
 //달력모달
 import Calendar from "../calender";
 
-const windowWidth = Dimensions.get("window").width;
+const windowWidth = DimensioSns.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 function HeaderLine({ navigate, selectedDistrict }) {
