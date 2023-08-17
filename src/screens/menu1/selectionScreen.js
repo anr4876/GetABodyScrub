@@ -9,7 +9,7 @@ import {
   Platform,
   ScrollView,
   Image,
-  Modal
+  Modal,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
@@ -63,9 +63,11 @@ function HeaderLine({ navigate, selectedDistrict }) {
         </View>
 
         <View style={styles.dateContainer}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.dateButton}
-            onPress={() => { setModalVisible(true); }}
+            onPress={() => {
+              setModalVisible(true);
+            }}
           >
             <Text style={styles.dateText}>예약일 선택</Text>
             <FontAwesomeIcon
@@ -138,13 +140,14 @@ function BottomLine({ navigate, selectedDistrict }) {
     const fetchItems = async () => {
       try {
         const response = await fetch(
-          `http://220.81.199.135:3000/items?region=${NAVIGATE_PARAM_REGION}`
+          `http://localhost:3000/locations/${NAVIGATE_PARAM_REGION}`
         );
+
         const data = await response.json();
         console.log("Fetched data:", data);
 
-        if (data.items && data.items.length > 0) {
-          setItems(data.items);
+        if (data && data.length > 0) {
+          setItems(data);
           setIsServiceAvailable(true);
         } else {
           setIsServiceAvailable(false);
@@ -169,7 +172,7 @@ function BottomLine({ navigate, selectedDistrict }) {
           <TouchableOpacity key={item.id}>
             <View style={styles.itemContainer}>
               <Image
-                source={{ uri: item.imageUrl }}
+                source={{ uri: item.image_path }}
                 style={styles.separateImage}
               />
               <Text style={styles.name}>{item.name}</Text>
