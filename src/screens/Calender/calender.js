@@ -4,7 +4,8 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, Dimensions } from "react-native";
 import Calendar from "./cal";
 
-export default function CalendarScreen() {
+
+function CalendarScreen({ onClose }) {
   const handleOnClose = () => {
     // 나가기 기능 구현
   };
@@ -17,7 +18,7 @@ export default function CalendarScreen() {
 
   return (
     <View style={styles.container}>
-      <Calendar onClose={handleOnClose} onReset={handleOnReset} />
+       <Calendar onClose={onClose} />
       <StatusBar style="auto" />
     </View>
   );
@@ -35,3 +36,5 @@ function createStyleSheet(width, height) {
     },
   });
 }
+
+export default CalendarScreen

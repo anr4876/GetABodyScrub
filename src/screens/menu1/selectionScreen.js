@@ -1,25 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  TextInput,
-  Text,
-  StyleSheet,
-  Dimensions,
-  View,
-  TouchableOpacity,
-  Platform,
-  ScrollView,
-  Image,
-  Modal,
-} from "react-native";
+import { TextInput,Text,StyleSheet,Dimensions,View,TouchableOpacity,Platform,ScrollView,Image} from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {
-  faMagnifyingGlass,
-  faCalendarDays,
-  faBars,
-  faLocationArrow,
-} from "@fortawesome/free-solid-svg-icons";
+import {faMagnifyingGlass, faCalendarDays, faBars, faLocationArrow, } from "@fortawesome/free-solid-svg-icons";
 //달력모달
 import Calendar from "../Calender/calender";
+import CalModal from '../calModal';
+
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -79,46 +65,13 @@ function HeaderLine({ navigate, selectedDistrict }) {
       </View>
 
       {/* 달력 팝업 */}
-       <Modal
-          animationType="fade"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-            }}
-          >
-            <View
-              style={{
-                width: '80%', // 모달 너비를 비율로 조정
-                height: '60%', // 모달 높이를 비율로 조정
-                backgroundColor: "white",
-                borderRadius: 10, // 모달 모서리 둥글게
-                padding: 20, // 모달 내부 패딩 추가
-              }}
-            >
-              <View
-                style={{
-                  flex: 1, // 달력 컴포넌트 크기를 모달의 크기에 맞춤
-                  justifyContent: "center", // 달력 컴포넌트 세로 중앙 정렬 추가
-                  alignItems: "center", // 달력 컴포넌트 가로 중앙 정렬 추가
-                }}
-              >
-                <Calendar onClose={() => setModalVisible(false)} />
-              </View>
-            </View>
+      <View>
+        <CalModal modalVisible={modalVisible} onClose={setModalVisible}>
+          <View style={{ flex: 1,justifyContent: "center",alignItems: "center",}}>
+            <Calendar onClose={() => setModalVisible(false)} />
           </View>
-        </Modal>
-
-
-
+        </CalModal>
+      </View>
     </View>
   );
 }

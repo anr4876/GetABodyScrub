@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { startOfMonth, startOfWeek, addDays, endOfMonth, isSameDay, subMonths, addMonths, format, } from 'date-fns';
 
-const Calendar = () => {
+const Calendar = ({ onClose }) => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -97,7 +97,9 @@ const Calendar = () => {
     return (
         <View>
             <View style={styles.topbar}>
-                <Text >X</Text>
+                <TouchableOpacity onPress={onClose}>
+                    <Text>X</Text>
+                </TouchableOpacity>
                 <Text >날짜선택</Text>
                 <Text >초기화</Text>
             </View>
