@@ -17,6 +17,7 @@ export default function SearchScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.provinceContainer}>
       <FlatList
         data={regions}
         keyExtractor={(item) => item.id}
@@ -43,6 +44,9 @@ export default function SearchScreen({ navigation }) {
         showsVerticalScrollIndicator={false}
       />
 
+      </View>
+      
+      <View style={styles.districtContainer}>
       <FlatList
         data={districts}
         keyExtractor={(item, index) => `${selectedProvince}-${index}`}
@@ -55,6 +59,7 @@ export default function SearchScreen({ navigation }) {
         )}
         contentContainerStyle={styles.districtList}
       />
+      </View>
     </SafeAreaView>
   );
 }
@@ -65,10 +70,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 
-  //좌측
+  //좌측 스타일
+  provinceContainer: {
+    flex:1.2,
+    //width: '60%',    
+  },
   provinceList: {
-    flexGrow: 0,
-    width: "100%",
+    flex:1,
     backgroundColor: "#d17e7e",
   },
   provinceItem: {
@@ -93,9 +101,11 @@ const styles = StyleSheet.create({
   },
 
   //우측 스타일
-
+  districtContainer: {
+    flex:3,   
+  },
   districtList: {
-    flexGrow: 1,
+    flex: 1,
   },
   districtItem: {
     padding: 15,
