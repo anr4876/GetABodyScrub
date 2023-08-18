@@ -23,7 +23,7 @@ const Tab = createBottomTabNavigator();
 
 // 탭 스크린 옵션
 const createTabScreen = (name, component, icon) => ({
-  name, component, options: { tabBarIcon: ({ focused }) => tabBarIcon(icon, focused)}
+  name, component, options: { tabBarIcon: ({ focused }) => tabBarIcon(icon, focused),headerShown: false}
 });
 
 export default function StackScreen() {
@@ -31,14 +31,11 @@ export default function StackScreen() {
     <Tab.Navigator
       initialRouteName='검색'
       screenOptions={{
-        tabBarActiveTintColor: '#dd5151',
+        tabBarActiveTintColor: '#dd5251',
         tabBarInactiveTintColor: '#9A9A9A',
         tabBarLabelPosition: 'below-icon',
         tabBarLabelStyle: { fontSize: 15, marginTop: 0, marginBottom: 0 },
-        tabBarStyle: {
-          height: 60,
-          flex: 0.08,
-        }
+        tabBarStyle: { height: 60, flex: 0.08 },
       }}
     >
       <Tab.Screen {...createTabScreen('검색', SearchStack, faMagnifyingGlass)} />

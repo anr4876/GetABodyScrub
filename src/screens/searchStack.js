@@ -7,18 +7,7 @@ const Stack = createNativeStackNavigator();
 
 export default function SearchStack() {
     return (
-        <Stack.Navigator
-            screenOptions={{
-                title: "Search",
-                headerStyle: {
-                    backgroundColor: "#f4511e",
-                },
-                headerTintColor: "#fff",
-                headerTitleStyle: {
-                    fontWeight: "bold",
-                },
-            }}
-        >
+        <Stack.Navigator screenOptions>
             <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Selection" component={SelectionScreen} options={{ headerShown: false }}/>          
         </Stack.Navigator>

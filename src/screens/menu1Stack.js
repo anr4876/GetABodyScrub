@@ -16,15 +16,7 @@ export default function StackScreen1() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{
-          headerRight: () => (
-            <Button
-              onPress={() => alert("This is a button!")}
-              title="Info"
-              color="#fff"
-            />
-          ),
-        }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="Profile"
